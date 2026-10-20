@@ -29,18 +29,32 @@ Triage Automation: Dynamically calculates urgency tiers (HIGH, MEDIUM, LOW) base
  
  ┣ prioritized_cases.csv              # Urgency-ranked cases output for humanitarian response
 
- Project Workflow & PipelineData Ingestion & Cleaning:
+ ## Project Workflow & PipelineData Ingestion & Cleaning:
+ 
  Loads community feedback records, filters essential text/label columns, drops nulls, and casts data types.
+ 
  Restricts labels strictly to valid categories (positive, neutral, negative, distress).
+ 
  Stratified Splitting:Splits data into 80% Training, 10% Validation, and 10% Testing sets using stratified sampling to maintain class distribution proportions.
+ 
  Tokenization & Dataset Conversion:Uses BertTokenizer (bert-base-uncased) with padding (max_length=128) and truncation.
+ 
  Converts Pandas DataFrames into Hugging Face Dataset structures mapped for the PyTorch trainer.
+ 
  Model Fine-Tuning (BertForSequenceClassification):Configures a pre-trained BERT backbone with 4 output labels, optimized via AdamW, learning rate warmup/decay,
+ 
  and custom evaluation metrics (Accuracy, Precision, Recall, Macro-F1).
+ 
  Urgency Scoring & Case Prioritization:Maps predicted sentiments to operational priority flags (distress  HIGH, negative MEDIUM, neutral/positive  LOW).
+ 
  Sorts and exports prioritized queues (prioritized_cases.csv) for rapid human-in-the-loop review.
- Single-Text Inference Engine:Provides a utility function (predict_sentiment) to instantly classify newly incoming text feedback with confidence scores and recommended response actions.
- Getting Started & Installation1. PrerequisitesInstall the required dependencies in your environment:
+ 
+ Single-Text Inference Engine:Provides a utility function (predict_sentiment) to instantly classify newly incoming text feedback with confidence scores and 
+ 
+ recommended response actions.
+ 
+ Getting Started & Installation. PrerequisitesInstall the required dependencies in your environment:
+ 
  
  ┣ bert_sentiment_model/               Checkpoint directory generated during training
  
